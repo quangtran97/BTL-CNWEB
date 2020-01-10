@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>QUẢN LÝ SINH VIÊN</title>
+  <title>QUẢN LÝ ĐIỂM</title>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="../css/layout.css">
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -48,38 +48,29 @@
 
 <div class="container text-center">    
   <div class="row content">
-    <h2 class="text-info">THÊM THÔNG TIN SINH VIÊN</h2>
+    <h2 class="text-info">THÊM ĐIỂM QÚA TRÌNH</h2>
     <div >
         <?php
             if(isset($_POST['submit'])){
-                if(empty($_POST['masv']) || empty($_POST['tensv'])|| empty($_POST['tenlop'])|| empty($_POST['tenkhoa'])|| empty($_POST['namsinh'])|| empty($_POST['gioitinh'])|| empty($_POST['quequan']))
-                  {
-                    echo '<p style="color:red">Vui lòng nhập đầy đủ thông tin</p>';
-                  }else{//nếu điền đầy đủ thông tin thì update
-                    $masv=$_POST['masv'];
-                    $tensv=$_POST['tensv'];
-                    $tenlop=$_POST['tenlop'];
-                    $tenkhoa=$_POST['tenkhoa'];
-                    $namsinh=$_POST['namsinh'];
-                    $gioitinh=$_POST['gioitinh'];
-                    $quequan=$_POST['quequan'];
-                     $sql="select * from sinhvien where masv='$masv'";
-                     $query= mysqli_query($con,$sql);
-                     $num =mysqli_num_rows($query);
-                     if($num==1){
-                        echo '<p style="color:red">Mã sinh viên đã tồn tại</p>';
-                     }else{
-                    $sql2= "INSERT INTO `sinhvien` (`masv`, `tensv`, `tenlop`, `tenkhoa`, `namsinh`, `gioitinh`, `quequan`) VALUES ('$masv', '$tensv', '$tenlop', '$tenkhoa', '$namsinh', '$gioitinh', '$gioitinh')";
+                    if(empty($_POST['masv']) || empty($_POST['tensv'])|| empty($_POST['tenmon'])|| empty($_POST['diemquatrinh']))
+                      {
+                        echo '<p style="color:red">Vui lòng nhập đầy đủ thông tin</p>';
+                      }else{//nếu điền đầy đủ thông tin thì update
+                        $masv=$_POST['masv'];
+                        $tensv=$_POST['tensv'];
+                        $tenmon=$_POST['tenmon'];
+                        $diemquatrinh=$_POST['diemquatrinh'];
+                     
+                        $sql2="INSERT INTO `diem` (`id_bangdiem`, `masv`, `tensv`, `tenmon`, `diemquatrinh`) VALUES (NULL, '$masv', '$tensv', '$tenmon', '$diemquatrinh')";
                     $query2=mysqli_query($con,$sql2);
                    
                     if($query2){
                      
         
                         echo"<script type='text/javascript'>";
-                        echo"alert('Thêm dữ liệu sinh viên thành công')";
+                        echo"alert('Thêm Điểm Thành Công!')";
                        
                         echo"</script>";
-                    }
                      }
                     } 
                   }      
@@ -94,16 +85,12 @@
             <input type="text" class="form-control" name="masv" placeholder="Mã Sinh Viên..." >
             <label for="">Tên Sinh Viên:</label>
             <input type="text" class="form-control" name="tensv" placeholder="Tên SInh Viên..." >
-            <label for="">Lớp:</label>
-            <input type="text" class="form-control" name="tenlop" placeholder="Lớp..." >
-            <label for=>Khoa:</label>
-            <input type="tex" class="form-control" name="tenkhoa" placeholder="Khoa..." >
-            <label for="">Năm Sinh:</label>
-            <input type="text" class="form-control" name="namsinh" placeholder="Năm Sinh...">
-            <label for=""> Giới Tính:</label>
-            <input type="text" class="form-control" name="gioitinh" placeholder="Giới Tính...">
-            <label for=""> Quê Quán:</label>
-            <input type="text" class="form-control" name="quequan" placeholder="Quê Quán...">
+            <label for="">Tên Môn:</label>
+            <input type="text" class="form-control" name="tenmon" placeholder="Tên Môn..." >
+            <label for="">Điểm Quá Trình:</label>
+            <input type="tex" class="form-control" name="diemquatrinh" placeholder="Điểm Quá Trình..." >
+           
+        
         </div>
         <button type="submit" name="submit" class="btn btn-danger">Thêm</button> 
       </form>

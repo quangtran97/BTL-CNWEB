@@ -45,10 +45,17 @@
     </div>
   </div>
 </nav>
-
+<?php
+    $msv=$_GET['id'];//lấy id trên url trang suauser
+    //echo $id;
+     $sql="select * from sinhvien where masv='$msv'";
+     $query=mysqli_query($con,$sql);
+     $row=mysqli_fetch_array($query);
+     
+?>
 <div class="container text-center">    
   <div class="row content">
-    <h2 class="text-info">THÊM THÔNG TIN SINH VIÊN</h2>
+    <h2 class="text-info">SỬA THÔNG TIN SINH VIÊN</h2>
     <div >
         <?php
             if(isset($_POST['submit'])){
@@ -63,24 +70,12 @@
                     $namsinh=$_POST['namsinh'];
                     $gioitinh=$_POST['gioitinh'];
                     $quequan=$_POST['quequan'];
-                     $sql="select * from sinhvien where masv='$masv'";
-                     $query= mysqli_query($con,$sql);
-                     $num =mysqli_num_rows($query);
-                     if($num==1){
-                        echo '<p style="color:red">Mã sinh viên đã tồn tại</p>';
-                     }else{
-                    $sql2= "INSERT INTO `sinhvien` (`masv`, `tensv`, `tenlop`, `tenkhoa`, `namsinh`, `gioitinh`, `quequan`) VALUES ('$masv', '$tensv', '$tenlop', '$tenkhoa', '$namsinh', '$gioitinh', '$gioitinh')";
-                    $query2=mysqli_query($con,$sql2);
                    
+                    $sql2="update sinhvien set masv='$masv',tensv='$tensv',tenlop='$tenlop',tenkhoa='$tenkhoa',namsinh='$namsinh' ,gioitinh='$gioitinh',quequan='$quequan' where masv='$msv'  ";
+                    $query2=mysqli_query($con,$sql2);
                     if($query2){
-                     
-        
-                        echo"<script type='text/javascript'>";
-                        echo"alert('Thêm dữ liệu sinh viên thành công')";
-                       
-                        echo"</script>";
+                        header('location:quanlysv.php');//nếu câu lệnh truy vấn được được thực thì thì sẽ chuyển hướng đến trang quanlynhac.php
                     }
-                     }
                     } 
                   }      
             
@@ -91,21 +86,21 @@
     <form action="" method="POST">
         <div class="form-group">
             <label  for="">Mã Sinh Viên:</label>
-            <input type="text" class="form-control" name="masv" placeholder="Mã Sinh Viên..." >
+            <input type="text" class="form-control" name="masv" placeholder="Mã Sinh Viên..." value="<?php echo $row['masv']; ?>">
             <label for="">Tên Sinh Viên:</label>
-            <input type="text" class="form-control" name="tensv" placeholder="Tên SInh Viên..." >
+            <input type="text" class="form-control" name="tensv" placeholder="Tên SInh Viên..." value="<?php echo $row['tensv']; ?>">
             <label for="">Lớp:</label>
-            <input type="text" class="form-control" name="tenlop" placeholder="Lớp..." >
-            <label for=>Khoa:</label>
-            <input type="tex" class="form-control" name="tenkhoa" placeholder="Khoa..." >
+            <input type="text" class="form-control" name="tenlop" placeholder="Lớp..." value="<?php echo $row['tenlop']; ?>">
+            <label for="">Khoa:</label>
+            <input type="tex" class="form-control" name="tenkhoa" placeholder="Khoa..." value="<?php echo $row['tenkhoa']; ?>">
             <label for="">Năm Sinh:</label>
-            <input type="text" class="form-control" name="namsinh" placeholder="Năm Sinh...">
+            <input type="text" class="form-control" name="namsinh" placeholder="Năm Sinh..." value="<?php echo $row['namsinh']; ?>">
             <label for=""> Giới Tính:</label>
-            <input type="text" class="form-control" name="gioitinh" placeholder="Giới Tính...">
+            <input type="text" class="form-control" name="gioitinh" placeholder="Giới Tính..." value="<?php echo $row['gioitinh']; ?>">
             <label for=""> Quê Quán:</label>
-            <input type="text" class="form-control" name="quequan" placeholder="Quê Quán...">
+            <input type="text" class="form-control" name="quequan" placeholder="Quê Quán..." value="<?php echo $row['quequan']; ?>">
         </div>
-        <button type="submit" name="submit" class="btn btn-danger">Thêm</button> 
+        <button type="submit" name="submit" class="btn btn-danger">Sửa</button> 
       </form>
   </div>
 </div>
