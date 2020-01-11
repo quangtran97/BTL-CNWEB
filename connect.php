@@ -6,9 +6,9 @@ $username = "root";
  
 $password = "";
  
-$database= "nhac";
+$dbname = "quanlydiem";
  
-$con = mysqli_connect($servername,$username,$password,$database);
+$con = mysqli_connect($servername,$username,$password,$dbname);
 mysqli_query($con,'SET NAMES UTF8');//khi truy xuất dữ liệu lên web không bị lỗi font tiếng việt
  
 if(!$con){
